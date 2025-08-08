@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MoneyMate - Kayıt Listesi</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h1>Kaydedilen Tutarlar</h1>
+
+    <ul>
+        {% for veri in veriler %}
+            <li>
+                <strong>{{ veri.tutar }} TL</strong> - {{ veri.aciklama }}
+                <a href="/sil/{{ veri.id }}">Sil</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="/">Yeni tutar ekle</a>
+</body>
+</html>

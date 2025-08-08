@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>MoneyMate - Gelir Gider Takibi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #fdf6e3;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 30px 40px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .moneymate-logo {
+            font-family: 'Pacifico', cursive;
+            font-size: 48px;
+            color: #2ecc71;
+            text-shadow: 1px 1px 0 #0f0, 2px 2px 0 #0c0, 3px 3px 0 #090;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .subtext {
+            text-align: center;
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 30px;
+        }
+
+        form {
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            margin-top: 20px;
+            background-color: #2ecc71;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #27ae60;
+        }
+
+        .kalan-para {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .veri-listesi li {
+            margin: 10px 0;
+            padding: 8px 12px;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            font-size: 16px;
+            list-style: none;
+        }
+
+        .sil-btn {
+            float: right;
+            background-color: #ff4d4d;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+
+        .sil-btn:hover {
+            background-color: #cc0000;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 class="moneymate-logo">MoneyMate</h1>
+    <p class="subtext">Kişisel gelir-gider takip uygulaman</p>
+
+    {% if kalan is not none %}
+        <div class="kalan-para">Kalan Bütçeniz: <strong>{{ kalan }} TL</strong></div>
+    {% endif %}
+
+    <form action="/add" method="POST">
+        <label for="miktar">Tutar:</label>
+        <input type="text" id="miktar" name="miktar" required>
+
+        <label for="description">Açıklama:</label>
+        <input type="text" id="description" name="description" required>
+
+        <button type="submit">Kaydet</button>
+    </form>
+
+    <h2>Nelere Harcama Yaptın?</h2>
+    <ul class="veri-listesi">
+        {% for veri in veriler %}
+            <li>
+                <strong>{{ veri.tutar }} TL</strong> - {{ veri.aciklama }}
+                <a href="/sil/{{ veri.id }}" class="sil-btn">Sil</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+</body>
+</html>
